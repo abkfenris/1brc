@@ -1,0 +1,71 @@
+[project]
+name = "1brc"
+version = "0.1.0"
+description = "Add a short description here"
+authors = ["Alex Kerney <abk@mac.com>"]
+channels = ["conda-forge"]
+platforms = ["osx-arm64"]
+
+[tasks]
+
+[dependencies]
+
+[feature.create.dependencies]
+tqdm = ">=4.66.2,<4.67"
+polars = ">=0.20.21,<0.21"
+numpy = ">=1.26.4,<1.27"
+
+[feature.create.tasks]
+create_measurements = "python py/create_measurements.py"
+
+[feature.stdlib.dependencies]
+python = ">=3.12.3,<3.13"
+tqdm = ">=4.66.2,<4.67"
+
+[feature.stdlib.tasks]
+1_std_lib = "time python py/1_std_lib.py"
+
+[feature.pandas.dependencies]
+pandas = ">=2.2.2,<2.3"
+
+[feature.pandas.tasks]
+py_2_pandas = "time python py/2_pandas.py"
+
+[feature.dask.dependencies]
+dask = ">=2024.4.2,<2024.5"
+
+[feature.dask.tasks]
+py_3_dask = "time python py/3_dask.py"
+
+[feature.polars.dependencies]
+polars = ">=0.20.21,<0.21"
+
+[feature.polars.tasks]
+py_4_polars_eager = "time python py/4_polars_eager.py"
+py_5_polars_lazy = "time python py/5_polars_lazy.py"
+
+[feature.ibis.dependencies]
+ibis-pandas = ">=8.0.0,<8.1"
+ibis-duckdb = ">=8.0.0,<8.1"
+ibis-polars = ">=8.0.0,<8.1"
+ibis-dask = ">=8.0.0,<8.1"
+ibis-datafusion = ">=8.0.0,<8.1"
+
+[feature.ibis.tasks]
+py_6_1_ibis_duckdb = "time python py/6_1_ibis_duckdb.py"
+py_6_2_ibis_dask = "time python py/6_2_ibis_dask.py"
+
+[feature.pre-commit.dependencies]
+pre-commit = ">=3.1.1,<3.8"
+
+[feature.pre-commit.tasks]
+format = "pre-commit run --all-files"
+
+[environments]
+create = ["create"]
+stdlib = ["stdlib"]
+pandas = ["pandas"]
+dask = ["dask"]
+polars = ["polars"]
+ibis = ["ibis"]
+pre-commit = ["pre-commit"]
